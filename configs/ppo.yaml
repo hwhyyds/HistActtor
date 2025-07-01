@@ -1,0 +1,26 @@
+data_config:
+  steps: train_with_rank1.json
+  val_file: test_with_rank1.json
+  test_file: test_with_rank1.json
+  num_proc: 1
+
+deepspeed:
+  deepspeed: configs/ds_zero_3.json
+accelerator_config:
+  mixed_precision: bf16
+  device_placement: true
+ppo_config:
+  steps: 20000
+  model_name: HistActor
+  learning_rate: 1e-5
+  batch_size: 1
+  mini_batch_size: 1
+  gradient_accumulation_steps: 1
+  backward_batch_size: 1
+  optimize_cuda_cache: true
+  early_stopping: false
+  target_kl: 0.1
+  ppo_epochs: 1
+  init_kl_coef: 0.5
+  adap_kl_ctrl: false
+  kl_penalty: full
